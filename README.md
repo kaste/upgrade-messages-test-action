@@ -7,8 +7,12 @@ This simple GitHub action ensures this file is correct and points to actual file
 The usage is as simple as possible: 
 
 ```
-steps:
-- uses: actions/checkout
-- uses: kaste/upgrade-messages-test-action
+jobs:
+  check-messages:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: kaste/upgrade-messages-test-action@v1
+
 ```
 
