@@ -1,0 +1,41 @@
+name: Testing
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  run_action_valid:
+    strategy:
+      matrix:
+        test_name:
+          - ok-message-file
+    name: ${{ matrix.test_name }} (valid)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ./
+      with:
+        path: tests/${{ matrix.test_name }}
+
+  run_action_not_valid:
+    strategy:
+      matrix:
+        test_name:
+          - not-ok-messages-not-parsable
+    name: ${{ matrix.test_name }} (not valid)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ./
+      with:
+        path: tests/${{ matrix.test_name }}
+      continue-on-error: true
+      id: test
+    - if: steps.test.outcome == 'failure'
+      run: echo OK expected failure
+    - if: steps.test.outcome == 'success'
+      run: |
+        echo ERROR Test should have failed
+        exit 1
