@@ -1,0 +1,26 @@
+name: 'Test ''messages.json'' for Sublime Text plugins'
+author: 'herr.kaste'
+description: >
+  Test 'messages.json' file to be parsable and sane.
+
+  'messages.json' is used by Package Control, the package manager
+  for Sublime Text
+
+inputs:
+  path:
+    description: 'Path to the root of you plugin'
+    required: false
+    default: ''
+runs:
+  using: 'composite'
+  steps:
+  - uses: actions/setup-python@v4
+    with:
+      python-version: "3.10"
+  - run: python ${{ github.action_path }}/test.py
+    shell: bash
+    env:
+      INPUT_PATH: ${{ inputs.path }}
+branding:
+  icon: 'code'
+  color: 'blue'
