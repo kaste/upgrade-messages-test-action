@@ -14,7 +14,7 @@ jobs:
     name: ${{ matrix.test_name }} (valid)
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: ./
       with:
         path: tests/${{ matrix.test_name }}
@@ -27,7 +27,7 @@ jobs:
     name: ${{ matrix.test_name }} (not valid)
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: ./
       with:
         path: tests/${{ matrix.test_name }}
